@@ -31,4 +31,7 @@ func main() {
 	}
 
 	fError() // want "NG"
+
+	f := func(a int) error { return fmt.Errorf("%d, this is also error", a) }
+	f(a) // want "NG"
 }

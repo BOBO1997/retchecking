@@ -1,4 +1,4 @@
-# return checking
+# retchecking
 
 An individual project at mercari summer internship 2020.
 

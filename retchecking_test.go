@@ -1,15 +1,14 @@
-package return-checking_test
+package retchecking_test
 
 import (
 	"testing"
 
-	"github.com/BOBO1997/return-checking"
+	"github.com/BOBO1997/retchecking"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 
 // TestAnalyzer is a test for Analyzer.
 func TestAnalyzer(t *testing.T) {
 	testdata := analysistest.TestData()
-	analysistest.Run(t, testdata, return-checking.Analyzer, "a")
+	analysistest.Run(t, testdata, retchecking.Analyzer, "a")
 }
-
