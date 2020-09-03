@@ -10,5 +10,5 @@ import (
 // TestAnalyzer is a test for Analyzer.
 func TestAnalyzer(t *testing.T) {
 	testdata := analysistest.TestData()
-	analysistest.Run(t, testdata, retchecking.Analyzer, "d")
+	analysistest.Run(t, testdata, retchecking.Analyzer, "e")
 }
