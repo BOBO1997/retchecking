@@ -2,6 +2,7 @@ package a
 
 import (
 	"fmt"
+	"net/http"
 )
 
 // S is a fake
@@ -51,6 +52,12 @@ func main() {
 		}
 	}
 	h() // want "OK"
+
+	var w http.ResponseWriter
+	http.Error(w, "", 0) // want "NG"
+
+	http.Error(w, "", 0) // want "OK"
+	return
 
 }
 
