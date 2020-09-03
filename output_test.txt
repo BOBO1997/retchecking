@@ -1,0 +1,36 @@
+     0  *ast.ExprStmt {
+     1  .  X: *ast.CallExpr {
+     2  .  .  Fun: *ast.Ident {
+     3  .  .  .  NamePos: 40
+     4  .  .  .  Name: "f"
+     5  .  .  .  Obj: *ast.Object {
+     6  .  .  .  .  Kind: func
+     7  .  .  .  .  Name: "f"
+     8  .  .  .  .  Decl: *ast.FuncDecl {
+     9  .  .  .  .  .  Name: *ast.Ident {
+    10  .  .  .  .  .  .  NamePos: 17
+    11  .  .  .  .  .  .  Name: "f"
+    12  .  .  .  .  .  .  Obj: *(obj @ 5)
+    13  .  .  .  .  .  }
+    14  .  .  .  .  .  Type: *ast.FuncType {
+    15  .  .  .  .  .  .  Func: 12
+    16  .  .  .  .  .  .  Params: *ast.FieldList {
+    17  .  .  .  .  .  .  .  Opening: 18
+    18  .  .  .  .  .  .  .  Closing: 19
+    19  .  .  .  .  .  .  }
+    20  .  .  .  .  .  }
+    21  .  .  .  .  .  Body: *ast.BlockStmt {
+    22  .  .  .  .  .  .  Lbrace: 21
+    23  .  .  .  .  .  .  Rbrace: 22
+    24  .  .  .  .  .  }
+    25  .  .  .  .  }
+    26  .  .  .  }
+    27  .  .  }
+    28  .  .  Lparen: 41
+    29  .  .  Ellipsis: 0
+    30  .  .  Rparen: 42
+    31  .  }
+    32  }
+put sth
+PASS
+ok  	github.com/BOBO1997/retchecking	0.408s

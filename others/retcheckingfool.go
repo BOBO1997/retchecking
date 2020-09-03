@@ -23,12 +23,46 @@ var Analyzer = &analysis.Analyzer{
 func run(pass *analysis.Pass) (interface{}, error) {
 
 	// list of function to be checked
+	functions := []string{"fError", "S.Error", "http.Error", "f"}
 
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
-	ast.Print(pass.Fset, pass.Files[0].Decls)
+	/*
+		fmt.Println()
+		ast.Print(pass.Fset, pass.Files[0].Decls)
+		fmt.Println()
+	*/
 
-	inspect.Preorder(nil, func(n ast.Node) {})
+	inspect.Preorder(nil, func(n ast.Node) {
+		//fmt.Println(n.End())
+		//ast.Print(pass.Fset, n)
+		switch n := n.(type) {
+		case *ast.BlockStmt: // inspect a block statement
+			for i, tobechecked := range n.List {
+				switch tobechecked := tobechecked.(type) {
+				case *ast.ExprStmt: // expression statement
+					//ast.Print(nil, tobechecked)
+					switch funccall := tobechecked.X.(type) { // check function calling
+					case *ast.CallExpr:
+						if contains(funccall.Fun.(*ast.Ident).Name, functions) { //
+							//fmt.Println("put sth")
+							if i+1 == len(n.List) {
+								pass.Reportf(funccall.Pos(), "NG")
+							} else {
+								switch n.List[i+1].(type) {
+								case *ast.ReturnStmt:
+									continue
+								default:
+									pass.Reportf(funccall.Pos(), "NG")
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	})
+
 	return nil, nil
 }
 

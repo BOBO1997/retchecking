@@ -14,4 +14,8 @@ This program checks whether `return` statement is used immediately after certain
 
 パッケージの中の特定の関数について、その関数を呼び出した後、すぐにreturnしているかを検証するプログラムです。
 
+## Install
+
+`go get -u github.com/BOBO1997/retchecking`
+
 ## Usage
