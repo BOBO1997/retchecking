@@ -30,7 +30,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	functions := make([]types.Object, 0)
 	functions = append(functions, analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error"))
-	functions = append(functions, analysisutil.ObjectOf(pass, "S", "Error"))
+	functions = append(functions, analysisutil.ObjectOf(pass, "a", "fError"))
 	//functions = append(functions, analysisutil.ObjectOf(pass, "fError"))
 	fmt.Println(functions)
 	ast.Print(pass.Fset, pass.Files[0].Decls)
@@ -47,7 +47,13 @@ func run(pass *analysis.Pass) (interface{}, error) {
 				case *ast.ExprStmt:
 					switch x := expr.X.(type) {
 					case *ast.CallExpr:
-						xobj := pass.TypesInfo.Implicits[x]
+						var xobj types.Object
+						switch fun := x.Fun.(type) {
+						case *ast.SelectorExpr:
+							xobj = pass.TypesInfo.Selections[fun].Obj()
+						default:
+							xobj = pass.TypesInfo.Implicits[x]
+						}
 						fmt.Println("xobj: ", xobj)
 						if i == len(block.List)-1 {
 							fmt.Println("NG")
