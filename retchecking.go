@@ -1,8 +1,11 @@
 package retchecking
 
 import (
+	"fmt"
 	"go/ast"
+	"go/types"
 
+	"github.com/gostaticanalysis/analysisutil"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
@@ -25,29 +28,64 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	// list of function to be checked
 
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
-
+	functions := make([]types.Object, 0)
+	functions = append(functions, analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error"))
+	functions = append(functions, analysisutil.ObjectOf(pass, "S", "Error"))
+	//functions = append(functions, analysisutil.ObjectOf(pass, "fError"))
+	fmt.Println(functions)
 	ast.Print(pass.Fset, pass.Files[0].Decls)
 
-	inspect.Preorder(nil, func(n ast.Node) {})
+	for key, item := range pass.TypesInfo.Implicits {
+		fmt.Println("key: ", key, " item: ", item)
+	}
+
+	inspect.Preorder(nil, func(node ast.Node) {
+		switch block := node.(type) {
+		case *ast.BlockStmt:
+			for i, stmt := range block.List {
+				switch expr := stmt.(type) {
+				case *ast.ExprStmt:
+					switch x := expr.X.(type) {
+					case *ast.CallExpr:
+						xobj := pass.TypesInfo.Implicits[x]
+						fmt.Println("xobj: ", xobj)
+						if i == len(block.List)-1 {
+							fmt.Println("NG")
+							pass.Reportf(x.Pos(), "NG")
+						} else if i < len(block.List)-1 && isObjInList(xobj, functions) {
+							switch block.List[i+1].(type) {
+							case *ast.ReturnStmt:
+								fmt.Println("OK")
+								pass.Reportf(x.Pos(), "OK")
+							default:
+								fmt.Println("NG")
+								pass.Reportf(x.Pos(), "NG")
+							}
+						} else {
+							continue
+						}
+					}
+				}
+			}
+		}
+	})
 	return nil, nil
 }
 
-// check if e is in s or not
-func contains(e string, s []string) bool {
-	for _, v := range s {
-		if e == v {
+func isObjInList(xobj types.Object, functions []types.Object) bool {
+	for _, obj := range functions {
+		if xobj == obj {
 			return true
 		}
 	}
 	return false
 }
 
-// run breadth first search on ast
-func inspectBFS(pass *analysis.Pass) {
-	queue := make([]*ast.Decl, 0)
-	queue = append(queue)
-	for len(queue) > 0 {
-		//decl := queue[0]
-		queue = queue[1:]
+func isStringInList(xobj string, functions []string) bool {
+	for _, obj := range functions {
+		if xobj == obj {
+			return true
+		}
 	}
+	return false
 }

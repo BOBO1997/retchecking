@@ -1,2 +1,0 @@
-PASS
-ok  	github.com/BOBO1997/retchecking	0.390s

@@ -17,10 +17,12 @@ func fError() error {
 
 func g() {}
 
+func h() {}
+
 func main() {
 	if true {
-		fError()
-		return // want "OK"
+		fError() // want "OK"
+		return
 	}
 
 	var s S
@@ -28,8 +30,8 @@ func main() {
 
 	a := 1
 	if a == 1 {
-		s.Error()
-		return // want "OK"
+		s.Error() // want "OK"
+		return
 	}
 
 	fError() // want "NG"
@@ -41,12 +43,25 @@ func main() {
 	serror() // want "NG"
 
 	{
-		g()
+		g() // want "OK"
 
 		if true {
-			s.Error()
+			s.Error() // want "OK"
 			return
 		}
 	}
+	h() // want "OK"
 
 }
+
+/*
+OK
+NG
+OK
+NG
+NG
+NG
+OK
+OK
+OK
+*/
