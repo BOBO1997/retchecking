@@ -535,7 +535,7 @@ function without return /Users/yangbo/go/src/github.com/BOBO1997/return-checking
 NG
 NG
 
-fun is an *ast.FuncLit:  &{0xc007c22a40 0xc007e16fc0}
+fun is an *ast.FuncLit:  &{0xc008b3fea0 0xc00906d860}
 
 
 err3 <nil>
@@ -548,9 +548,8 @@ pass
 errs var errs []func()
 
 
-fun:  &{errs 7013111 0xc007c22ce0 7013113}
 xobj:  <nil>
-/Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:25:2 
+- 
 pass
 
 
@@ -565,32 +564,43 @@ Defs
 map[e:<nil> S:type e.S struct{f func(net/http.ResponseWriter, string, int)} f:field f func(net/http.ResponseWriter, string, int) main:func e.main() err1:var err1 func() err2:var err2 func() err3:var err3 func() errs:var errs []func() s:var s e.S w:var w net/http.ResponseWriter]
 key:  s  item:  var s e.S
 key:  w  item:  var w net/http.ResponseWriter
+key:  err1  item:  var err1 func()
 key:  S  item:  type e.S struct{f func(net/http.ResponseWriter, string, int)}
 key:  main  item:  func e.main()
 key:  f  item:  field f func(net/http.ResponseWriter, string, int)
-key:  err1  item:  var err1 func()
 key:  err2  item:  var err2 func()
 key:  err3  item:  var err3 func()
 key:  errs  item:  var errs []func()
 key:  e  item:  <nil>
 
 Scopes
-key:  &{7012879 0xc007e16db0 <nil>}  item:  function scope 0xc00684e1e0 {
+key:  &{7013096 0xc00906daa0 <nil>}  item:  function scope 0xc00910a780 {
 }
 
-key:  &{7012944 0xc007e16f60 <nil>}  item:  function scope 0xc00684e280 {
+key:  &{7012808 0xc00906d530 <nil>}  item:  function scope 0xc00910a190 {
 }
 
-key:  &{7012980 0xc007e17020 <nil>}  item:  function scope 0xc00684e320 {
+key:  &{7012944 0xc00906d800 <nil>}  item:  function scope 0xc00910a4b0 {
 }
 
-key:  &{7012995 0xc007e17080 <nil>}  item:  function scope 0xc00684e370 {
+key:  &{7012980 0xc00906d8c0 <nil>}  item:  function scope 0xc00910a550 {
 }
 
-key:  &{7012808 0xc007e16c90 <nil>}  item:  function scope 0xc007c25f40 {
+key:  &{7012995 0xc00906d920 <nil>}  item:  function scope 0xc00910a5a0 {
 }
 
-key:  &{7012850 0xc007e16d20 <nil>}  item:  function scope 0xc00684e0f0 {
+key:  &{7013073 0xc00906d9e0 <nil>}  item:  function scope 0xc00910a640 {
+}
+
+key:  &{<nil> 7012742 e [0xc008ef6740 0xc008ef68c0 0xc00906db90] scope 0xc00b4b0180 {
+	type S
+	func main
+}
+ [0xc00906d4a0] [http string int make http http] [0xc008b3fac0 0xc008b3fde0 0xc008b3fe60 0xc008b3fee0 0xc008b3ffc0 0xc009108000 0xc009108180 0xc009108420]}  item:  /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go scope 0xc00910a050 {
+.  package http ("net/http")
+}
+
+key:  &{7012850 0xc00906d5c0 <nil>}  item:  function scope 0xc00910a320 {
 .  var err1 func()
 .  var err2 func()
 .  var err3 func()
@@ -599,29 +609,18 @@ key:  &{7012850 0xc007e16d20 <nil>}  item:  function scope 0xc00684e0f0 {
 .  var w net/http.ResponseWriter
 }
 
-key:  &{7013073 0xc007e17140 <nil>}  item:  function scope 0xc00684e410 {
+key:  &{7012879 0xc00906d650 <nil>}  item:  function scope 0xc00910a410 {
 }
 
-key:  &{7013096 0xc007e17200 <nil>}  item:  function scope 0xc00684e550 {
-}
-
-key:  &{<nil> 7012742 e [0xc007c282c0 0xc007c28440 0xc007e172f0] scope 0xc006daddf0 {
-	type S
-	func main
-}
- [0xc007e16c00] [http string int make http http] [0xc007c22660 0xc007c22980 0xc007c22a00 0xc007c22a80 0xc007c22b60 0xc007c22ba0 0xc007c22d20 0xc007c22fc0]}  item:  /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go scope 0xc007c25e00 {
-.  package http ("net/http")
-}
-
-key:  &{7012890 0xc007e16ea0 <nil>}  item:  function scope 0xc00684e230 {
+key:  &{7012890 0xc00906d740 <nil>}  item:  function scope 0xc00910a460 {
 }
 
 
 Implicits
-key:  &{<nil> <nil> 0xc007c22680 <nil> 0}  item:  package http ("net/http")
-key:  &{<nil> [] 0xc007c22720 <nil> <nil>}  item:  var  net/http.ResponseWriter
-key:  &{<nil> [] string <nil> <nil>}  item:  var  string
 key:  &{<nil> [] int <nil> <nil>}  item:  var  int
+key:  &{<nil> <nil> 0xc008b3fae0 <nil> 0}  item:  package http ("net/http")
+key:  &{<nil> [] 0xc008b3fb80 <nil> <nil>}  item:  var  net/http.ResponseWriter
+key:  &{<nil> [] string <nil> <nil>}  item:  var  string
 
 Selections
 key:  &{s f}  item:  field (e.S) f func(net/http.ResponseWriter, string, int)
@@ -630,82 +629,81 @@ key:  &{s f}  item:  field (e.S) f func(net/http.ResponseWriter, string, int)
 InitOrder
 
 Types
-key:  err2  item:  {5 func() <nil>}
-key:  &{7012995 0xc007e17080 <nil>}  item:  {3 func() <nil>}
-key:  &{0xc007c22b00 0xc007e170e0}  item:  {7 func() <nil>}
-key:  &{7013071 <nil> 0xc007c22c00}  item:  {3 []func() <nil>}
-key:  &{s f}  item:  {5 func(net/http.ResponseWriter, string, int) <nil>}
-key:  &{s f}  item:  {5 func(net/http.ResponseWriter, string, int) <nil>}
-key:  &{0xc007c22f00 7013190 [w 0xc007c22f40 0xc007c22f80] 0 7013199}  item:  {1 () <nil>}
-key:  &{7012808 0xc007e16c90 <nil>}  item:  {3 func(net/http.ResponseWriter, string, int) <nil>}
-key:  &{0xc007c22900 0xc007e16f00}  item:  {7 func() <nil>}
-key:  &{7013073 0xc007e17140 <nil>}  item:  {3 func() <nil>}
-key:  &{7013091 INT 5}  item:  {4 int 5}
-key:  errs  item:  {5 []func() <nil>}
-key:  &{7012879 0xc007e16db0 <nil>}  item:  {3 func() <nil>}
-key:  &{err2 7012926 [] 0 7012927}  item:  {1 () <nil>}
-key:  &{0xc006d70270 7012953 [] 0 7012954}  item:  {1 () <nil>}
-key:  errs  item:  {5 []func() <nil>}
-key:  &{errs 7013111 0xc007c22ce0 7013113}  item:  {5 func() <nil>}
-key:  w  item:  {5 net/http.ResponseWriter <nil>}
-key:  &{7013194 STRING ""}  item:  {4 string ""}
-key:  &{7013198 INT 0}  item:  {4 int 0}
-key:  &{7012796 0xc007e16cc0 false}  item:  {3 struct{f func(net/http.ResponseWriter, string, int)} <nil>}
-key:  int  item:  {3 int <nil>}
-key:  &{7012944 0xc007e16f60 <nil>}  item:  {3 func() <nil>}
-key:  &{0xc007c22a40 0xc007e16fc0}  item:  {7 func() <nil>}
-key:  &{7012980 0xc007e17020 <nil>}  item:  {3 func() <nil>}
-key:  make  item:  {2 func([]func(), int) []func() <nil>}
-key:  &{7013096 0xc007e17200 <nil>}  item:  {3 func() <nil>}
-key:  S  item:  {3 e.S <nil>}
-key:  string  item:  {3 string <nil>}
-key:  &{0xc007c22ca0 0xc007e17260}  item:  {7 func() <nil>}
-key:  &{0xc007e17290 7013114 [] 0 7013115}  item:  {1 () <nil>}
-key:  s  item:  {5 e.S <nil>}
-key:  &{err1 7012905 [] 0 7012906}  item:  {1 () <nil>}
-key:  &{make 7013070 [0xc007e17170 0xc007c22c20] 0 7013083}  item:  {7 []func() <nil>}
-key:  &{errs 7013090 0xc007c22c80 7013092}  item:  {5 func() <nil>}
-key:  &{http ResponseWriter}  item:  {3 net/http.ResponseWriter <nil>}
-key:  s  item:  {5 e.S <nil>}
-key:  err1  item:  {5 func() <nil>}
-key:  &{0xc007c228e0 0xc007e16e40}  item:  {7 func() <nil>}
-key:  &{7012890 0xc007e16ea0 <nil>}  item:  {3 func() <nil>}
-key:  err3  item:  {5 func() <nil>}
-key:  err3  item:  {5 func() <nil>}
 key:  &{err3 7013011 [] 0 7013012}  item:  {1 () <nil>}
-key:  &{7013081 INT 10}  item:  {4 int 10}
-key:  &{7013112 INT 5}  item:  {4 int 5}
+key:  &{7013071 <nil> 0xc009108060}  item:  {3 []func() <nil>}
 key:  &{http Error}  item:  {7 func(w net/http.ResponseWriter, error string, code int) <nil>}
+key:  &{7012879 0xc00906d650 <nil>}  item:  {3 func() <nil>}
+key:  &{0xc008b3fd40 0xc00906d6e0}  item:  {7 func() <nil>}
+key:  &{0xc008b3fd60 0xc00906d7a0}  item:  {7 func() <nil>}
+key:  err2  item:  {5 func() <nil>}
+key:  &{s f}  item:  {5 func(net/http.ResponseWriter, string, int) <nil>}
+key:  &{s f}  item:  {5 func(net/http.ResponseWriter, string, int) <nil>}
+key:  &{7013198 INT 0}  item:  {4 int 0}
+key:  &{7013096 0xc00906daa0 <nil>}  item:  {3 func() <nil>}
+key:  errs  item:  {5 []func() <nil>}
+key:  errs  item:  {5 []func() <nil>}
+key:  S  item:  {3 e.S <nil>}
+key:  s  item:  {5 e.S <nil>}
+key:  &{7013194 STRING ""}  item:  {4 string ""}
+key:  &{0xc009108360 7013190 [w 0xc0091083a0 0xc0091083e0] 0 7013199}  item:  {1 () <nil>}
+key:  &{7012995 0xc00906d920 <nil>}  item:  {3 func() <nil>}
+key:  err3  item:  {5 func() <nil>}
+key:  &{7013091 INT 5}  item:  {4 int 5}
+key:  &{7013112 INT 5}  item:  {4 int 5}
+key:  &{0xc008b3ff60 0xc00906d980}  item:  {7 func() <nil>}
+key:  &{errs 7013090 0xc0091080e0 7013092}  item:  {5 func() <nil>}
+key:  &{7012808 0xc00906d530 <nil>}  item:  {3 func(net/http.ResponseWriter, string, int) <nil>}
+key:  &{7012796 0xc00906d560 false}  item:  {3 struct{f func(net/http.ResponseWriter, string, int)} <nil>}
+key:  &{7012944 0xc00906d800 <nil>}  item:  {3 func() <nil>}
+key:  &{7012980 0xc00906d8c0 <nil>}  item:  {3 func() <nil>}
+key:  make  item:  {2 func([]func(), int) []func() <nil>}
+key:  &{0xc009108100 0xc00906db00}  item:  {7 func() <nil>}
+key:  &{errs 7013111 0xc009108140 7013113}  item:  {5 func() <nil>}
 key:  &{http ResponseWriter}  item:  {3 net/http.ResponseWriter <nil>}
+key:  &{0xc00b4b0500 7012953 [] 0 7012954}  item:  {1 () <nil>}
+key:  string  item:  {3 string <nil>}
+key:  int  item:  {3 int <nil>}
+key:  &{7012890 0xc00906d740 <nil>}  item:  {3 func() <nil>}
+key:  &{err1 7012905 [] 0 7012906}  item:  {1 () <nil>}
+key:  &{make 7013070 [0xc00906da10 0xc009108080] 0 7013083}  item:  {7 []func() <nil>}
+key:  &{0xc00906db30 7013114 [] 0 7013115}  item:  {1 () <nil>}
+key:  s  item:  {5 e.S <nil>}
+key:  w  item:  {5 net/http.ResponseWriter <nil>}
+key:  err1  item:  {5 func() <nil>}
+key:  &{0xc008b3fea0 0xc00906d860}  item:  {7 func() <nil>}
+key:  err3  item:  {5 func() <nil>}
+key:  &{7013073 0xc00906d9e0 <nil>}  item:  {3 func() <nil>}
+key:  &{http ResponseWriter}  item:  {3 net/http.ResponseWriter <nil>}
+key:  &{err2 7012926 [] 0 7012927}  item:  {1 () <nil>}
+key:  &{7013081 INT 10}  item:  {4 int 10}
 
 Uses
-key:  err2  item:  var err2 func()
-key:  errs  item:  var errs []func()
-key:  http  item:  package http ("net/http")
-key:  ResponseWriter  item:  type net/http.ResponseWriter interface{Header() net/http.Header; Write([]byte) (int, error); WriteHeader(statusCode int)}
-key:  http  item:  package http ("net/http")
-key:  s  item:  var s e.S
-key:  w  item:  var w net/http.ResponseWriter
-key:  make  item:  builtin make
-key:  f  item:  field f func(net/http.ResponseWriter, string, int)
-key:  http  item:  package http ("net/http")
-key:  err1  item:  var err1 func()
 key:  err3  item:  var err3 func()
-key:  ResponseWriter  item:  type net/http.ResponseWriter interface{Header() net/http.Header; Write([]byte) (int, error); WriteHeader(statusCode int)}
-key:  string  item:  type string
+key:  S  item:  type e.S struct{f func(net/http.ResponseWriter, string, int)}
+key:  err2  item:  var err2 func()
 key:  int  item:  type int
 key:  err3  item:  var err3 func()
+key:  ResponseWriter  item:  type net/http.ResponseWriter interface{Header() net/http.Header; Write([]byte) (int, error); WriteHeader(statusCode int)}
+key:  f  item:  field f func(net/http.ResponseWriter, string, int)
+key:  s  item:  var s e.S
+key:  w  item:  var w net/http.ResponseWriter
+key:  http  item:  package http ("net/http")
 key:  errs  item:  var errs []func()
-key:  S  item:  type e.S struct{f func(net/http.ResponseWriter, string, int)}
+key:  errs  item:  var errs []func()
+key:  http  item:  package http ("net/http")
+key:  f  item:  field f func(net/http.ResponseWriter, string, int)
+key:  string  item:  type string
+key:  err1  item:  var err1 func()
+key:  make  item:  builtin make
+key:  http  item:  package http ("net/http")
 key:  Error  item:  func net/http.Error(w net/http.ResponseWriter, error string, code int)
 key:  s  item:  var s e.S
-key:  f  item:  field f func(net/http.ResponseWriter, string, int)
---- FAIL: TestAnalyzer (1.26s)
+key:  ResponseWriter  item:  type net/http.ResponseWriter interface{Header() net/http.Header; Write([]byte) (int, error); WriteHeader(statusCode int)}
+--- FAIL: TestAnalyzer (1.38s)
     analysistest.go:419: e/e.go:20:2: diagnostic "OK" does not match pattern "NG"
-    analysistest.go:419: e/e.go:25:2: diagnostic "Undefined Process" does not match pattern "NG"
-    analysistest.go:419: e/e.go:25:2: diagnostic "OK" does not match pattern "NG"
+    analysistest.go:417: -: unexpected diagnostic: OK
     analysistest.go:483: e/e.go:20: no diagnostic was reported matching "NG"
     analysistest.go:483: e/e.go:25: no diagnostic was reported matching "NG"
 FAIL
 exit status 1
-FAIL	github.com/BOBO1997/retchecking	1.633s
+FAIL	github.com/BOBO1997/retchecking	1.739s

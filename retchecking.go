@@ -75,7 +75,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 				fmt.Println()
 				switch expr := stmt.(type) {
 				case *ast.AssignStmt: // handling with assign statement, := and =
-					for _, v := range expr.Lhs {
+					// need to refer to RHS, since it is unnecessary to verify v if RHS is not the function we are paying attention
+					for _, v := range expr.Lhs { // TODO
 						switch v := v.(type) {
 						case *ast.Ident:
 							fmt.Println(v, pass.TypesInfo.Defs[v])
