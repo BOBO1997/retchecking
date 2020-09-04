@@ -19,3 +19,10 @@ This program checks whether `return` statement is used immediately after certain
 `go get -u github.com/BOBO1997/retchecking`
 
 ## Usage
+
+1. Add the `types.Object` of the function you want to check, into the variable `funcSetObj`.
+2. Put the `TOBETESTED.go` file to be checked into `testdata/src/TOBETESTED/` directory and run `go test`.
+
+Or you can use `go vet` command as followinig.
+
+`go vet -vettool="$(which retcheking)" TOBETESTED.go`

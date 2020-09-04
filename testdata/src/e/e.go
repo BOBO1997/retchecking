@@ -8,9 +8,12 @@ type S struct {
 }
 
 func main() {
-	err1, err2 := func() {}, func() {}
-	err1() // want "NG"
-	err2() // want "NG"
+	var s S
+	var w http.ResponseWriter
+
+	err1, err2 := http.Error, http.Error
+	err1(w, "", 0) // want "NG"
+	err2(w, "", 0) // want "NG"
 
 	func() {}() // want "OK"
 
@@ -21,11 +24,10 @@ func main() {
 
 	// how about []func() list?
 	errs := make([]func(), 10)
+	// ! this cannot be resolved
 	errs[5] = func() {}
 	errs[5]() // want "NG"
 
-	var s S
-	var w http.ResponseWriter
 	s.f = http.Error
 
 	s.f(w, "", 0) // want "NG"

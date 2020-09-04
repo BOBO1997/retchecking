@@ -31,39 +31,35 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	fileName := pass.Files[0].Name.Name
-	ast.Print(pass.Fset, pass.Files[0].Decls)
+	//ast.Print(pass.Fset, pass.Files[0].Decls)
 
 	// DONE: use map[types.Object]struct{} instead of []types.Object
-	funcSet := mapset.NewSet()
+	funcSetObj := mapset.NewSet()
 	if obj := analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error"); obj != nil {
-		funcSet.Add(obj)
+		funcSetObj.Add(obj)
 	}
 	if obj := analysisutil.ObjectOf(pass, fileName, "fError"); obj != nil {
-		funcSet.Add(obj)
+		funcSetObj.Add(obj)
+	}
+	if obj := analysisutil.ObjectOf(pass, fileName, "f"); obj != nil {
+		funcSetObj.Add(obj)
 	}
 	if obj := analysisutil.MethodOf(analysisutil.TypeOf(pass, fileName, "S"), "Error"); obj != nil {
-		funcSet.Add(obj)
+		funcSetObj.Add(obj)
 	}
 
-	// for debugging
-	fmt.Println(funcSet)
-	fmt.Println(funcSet.Cardinality())
-	fmt.Println(funcSet.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error")))
-	fmt.Println(funcSet.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), pass.Files[0].Name.Name, "a")))
+	funcSetIdent := mapset.NewSet()
 
+	// for debugging
 	/*
-		functions := make([]types.Object, 0)
-		functions = append(functions, analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error"))
-		functions = append(functions, analysisutil.ObjectOf(pass, "a", "fError"))
-		//functions = append(functions, pass.Pkg.Scope().Lookup("Error"))
-		functions = append(functions, analysisutil.MethodOf(analysisutil.TypeOf(pass, "a", "S"), "Error"))
-		for _, function := range functions {
-			fmt.Println(function)
-		}
+		fmt.Println(funcSetObj)
+		fmt.Println(funcSetObj.Cardinality())
+		fmt.Println(funcSetObj.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error")))
+		fmt.Println(funcSetObj.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), pass.Files[0].Name.Name, "a")))
 	*/
 
 	// TODO: add a handler for *ast.AssignStmt, *ast.FuncLit, *ast.IndexExpr and *ast.SelectorExpr
-	// TODO: *ast.AssignStmt, add this to funcSet
+	// TODO: *ast.AssignStmt, add this to funcSetObj
 	// DONE: *ast.FuncLit, add this to the switch handler
 
 	// depth first search on ast nodes, with referring each element of the list of the node.
@@ -72,25 +68,52 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		switch block := node.(type) {
 		case *ast.BlockStmt:
 			for i, stmt := range block.List {
-				fmt.Println()
 				switch expr := stmt.(type) {
 				case *ast.AssignStmt: // handling with assign statement, := and =
+					//fmt.Println("AssignStmt")
 					// need to refer to RHS, since it is unnecessary to verify v if RHS is not the function we are paying attention
-					for _, v := range expr.Lhs { // TODO
-						switch v := v.(type) {
-						case *ast.Ident:
-							fmt.Println(v, pass.TypesInfo.Defs[v])
-							if obj := pass.TypesInfo.Defs[v]; obj != nil {
-								//fmt.Println(obj)
-								funcSet.Add(obj)
+					if len(expr.Lhs) == len(expr.Rhs) { // ! restrict the condition
+						for i, v := range expr.Lhs {
+							switch v := v.(type) {
+							case *ast.Ident:
+								//fmt.Println("this is ident", v, pass.TypesInfo.Defs[v])
+								if obj := pass.TypesInfo.Defs[v]; obj != nil {
+									switch rhs := expr.Rhs[i].(type) {
+									case *ast.Ident:
+										if funcSetObj.Contains(rhs) {
+											funcSetIdent.Add(v)
+										}
+									case *ast.SelectorExpr:
+										if funcSetObj.Contains(pass.TypesInfo.Uses[rhs.Sel]) {
+											funcSetIdent.Add(v)
+										}
+									}
+								}
+							case *ast.IndexExpr:
+								pass.Reportf(v.Pos(), "Undefined Process")
+								// TODO
+								// ! This cannot be resolved!
+							case *ast.SelectorExpr:
+								if obj := pass.TypesInfo.Defs[v.Sel]; obj != nil {
+									switch rhs := expr.Rhs[i].(type) {
+									case *ast.Ident:
+										if funcSetObj.Contains(rhs) {
+											funcSetIdent.Add(v) // correct?
+										}
+									case *ast.SelectorExpr:
+										if funcSetObj.Contains(pass.TypesInfo.Uses[rhs.Sel]) {
+											funcSetIdent.Add(v) // correct?
+										}
+									}
+									funcSetObj.Add(obj)
+								}
+								// TODO
+								// ! This cannot be resolved!
+							default:
+								pass.Reportf(v.Pos(), "Undefined Process")
 							}
-							//fmt.Println(funcSet)
-						case *ast.IndexExpr:
-							// TODO
-						case *ast.SelectorExpr:
-							// TODO
-						default:
-							pass.Reportf(v.Pos(), "Undefined Process")
+							//fmt.Println(funcSetIdent)
+							//fmt.Println(funcSetObj)
 						}
 					}
 				case *ast.ExprStmt: // if a function is called
@@ -98,46 +121,48 @@ func run(pass *analysis.Pass) (interface{}, error) {
 					case *ast.CallExpr:
 						var xobj types.Object
 						var pos token.Pos
+						var varFlag bool
 						switch fun := x.Fun.(type) {
 						case *ast.IndexExpr:
 							// TODO
+							// ! This cannot be resolved!
 						case *ast.SelectorExpr: // if the function is a method of a structure
-							//xobj = pass.TypesInfo.Selections[fun].Obj()
-							fmt.Println("fun.Sel.Obj: ", fun.Sel)
+							//fmt.Println("fun.Sel.Obj: ", fun.Sel)
 							xobj = pass.TypesInfo.Uses[fun.Sel]
 							pos = fun.Sel.Pos()
 						case *ast.FuncLit:
-							fmt.Println("fun is an *ast.FuncLit: ", fun)
+							//fmt.Println("fun is an *ast.FuncLit: ", fun)
 							pos = fun.Pos()
 							pass.Reportf(pos, "OK")
 							continue
-						case *ast.Ident: // if the function is a normal function
-							//xobj = pass.TypesInfo.Implicits[x]
-							fmt.Println("fun is an *ast.Ident: ", fun)
+						case *ast.Ident: // if the function is a normal function or variable
+							//fmt.Println("fun is an *ast.Ident: ", fun)
 							xobj = pass.TypesInfo.Uses[fun]
 							pos = fun.Pos()
+							varFlag = funcSetIdent.Contains(fun) // why false?
+							//fmt.Println(fun, funcSetIdent, varFlag)
 						default:
-							fmt.Println("fun: ", fun)
+							//fmt.Println("fun: ", fun)
 							pos = fun.Pos()
-							pass.Reportf(pos, "Undefined Process")
+							//pass.Reportf(pos, "Undefined Process")
 						}
-						fmt.Println("xobj: ", xobj)
+						//fmt.Println("xobj: ", xobj)
 						if i == len(block.List)-1 {
-							fmt.Println("The last function without return", pass.Fset.Position(pos), "\nNG")
+							//fmt.Println("The last function without return", pass.Fset.Position(pos), "\nNG")
 							pass.Reportf(pos, "NG")
-						} else if i < len(block.List)-1 && funcSet.Contains(xobj) {
+						} else if i < len(block.List)-1 && (funcSetObj.Contains(xobj) || varFlag) {
 							switch block.List[i+1].(type) {
 							case *ast.ReturnStmt:
-								fmt.Println(pass.Fset.Position(pos), "\nOK")
-								pass.Reportf(pos, "OK")
+								//fmt.Println(pass.Fset.Position(pos), "\nOK")
+								//pass.Reportf(pos, "OK")
 							default:
-								fmt.Println("function without return", pass.Fset.Position(pos), "\nNG")
-								fmt.Println("NG")
+								//fmt.Println("function without return", pass.Fset.Position(pos), "\nNG")
+								//fmt.Println("NG")
 								pass.Reportf(pos, "NG")
 							}
 						} else {
-							fmt.Println(pass.Fset.Position(pos), "\npass")
-							pass.Reportf(pos, "OK")
+							//fmt.Println(pass.Fset.Position(pos), "\npass")
+							//pass.Reportf(pos, "OK")
 							continue
 						}
 					}
@@ -146,7 +171,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		}
 	})
 
-	dumpTypesInfo(pass)
+	//dumpTypesInfo(pass)
 	return nil, nil
 }
 
