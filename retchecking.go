@@ -44,6 +44,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	if obj := analysisutil.MethodOf(analysisutil.TypeOf(pass, fileName, "S"), "Error"); obj != nil {
 		funcSet.Add(obj)
 	}
+
+	// for debugging
 	fmt.Println(funcSet)
 	fmt.Println(funcSet.Cardinality())
 	fmt.Println(funcSet.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error")))
@@ -60,7 +62,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		}
 	*/
 
-	// TODO: add a handler for *ast.AssignStmt and *ast.FuncLit
+	// TODO: add a handler for *ast.AssignStmt, *ast.FuncLit, *ast.IndexExpr and *ast.SelectorExpr
 	// TODO: *ast.AssignStmt, add this to funcSet
 	// DONE: *ast.FuncLit, add this to the switch handler
 
@@ -74,11 +76,21 @@ func run(pass *analysis.Pass) (interface{}, error) {
 				switch expr := stmt.(type) {
 				case *ast.AssignStmt: // handling with assign statement, := and =
 					for _, v := range expr.Lhs {
-						if obj := pass.TypesInfo.Uses[v.(*ast.Ident)]; obj != nil {
-							fmt.Println(obj)
-							funcSet.Add(obj)
+						switch v := v.(type) {
+						case *ast.Ident:
+							fmt.Println(v, pass.TypesInfo.Defs[v])
+							if obj := pass.TypesInfo.Defs[v]; obj != nil {
+								//fmt.Println(obj)
+								funcSet.Add(obj)
+							}
+							//fmt.Println(funcSet)
+						case *ast.IndexExpr:
+							// TODO
+						case *ast.SelectorExpr:
+							// TODO
+						default:
+							pass.Reportf(v.Pos(), "Undefined Process")
 						}
-						fmt.Println(funcSet)
 					}
 				case *ast.ExprStmt: // if a function is called
 					switch x := expr.X.(type) {
@@ -86,6 +98,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 						var xobj types.Object
 						var pos token.Pos
 						switch fun := x.Fun.(type) {
+						case *ast.IndexExpr:
+							// TODO
 						case *ast.SelectorExpr: // if the function is a method of a structure
 							//xobj = pass.TypesInfo.Selections[fun].Obj()
 							fmt.Println("fun.Sel.Obj: ", fun.Sel)
@@ -96,11 +110,15 @@ func run(pass *analysis.Pass) (interface{}, error) {
 							pos = fun.Pos()
 							pass.Reportf(pos, "OK")
 							continue
-						default: // if the function is a normal function
+						case *ast.Ident: // if the function is a normal function
 							//xobj = pass.TypesInfo.Implicits[x]
-							fmt.Println("fun.(*ast.Ident): ", fun.(*ast.Ident))
-							xobj = pass.TypesInfo.Uses[fun.(*ast.Ident)]
-							pos = fun.(*ast.Ident).Pos()
+							fmt.Println("fun is an *ast.Ident: ", fun)
+							xobj = pass.TypesInfo.Uses[fun]
+							pos = fun.Pos()
+						default:
+							fmt.Println("fun: ", fun)
+							pos = fun.Pos()
+							pass.Reportf(pos, "Undefined Process")
 						}
 						fmt.Println("xobj: ", xobj)
 						if i == len(block.List)-1 {
