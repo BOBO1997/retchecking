@@ -25,4 +25,4 @@ This program checks whether `return` statement is used immediately after certain
 
 Or you can use `go vet` command as followinig.
 
-`go vet -vettool="$(which retcheking)" TOBETESTED.go`
+`go vet -vettool=$(which retcheking) TOBETESTED.go`

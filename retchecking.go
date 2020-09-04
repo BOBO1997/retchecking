@@ -50,14 +50,6 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	funcSetIdent := mapset.NewSet()
 
-	// for debugging
-	/*
-		fmt.Println(funcSetObj)
-		fmt.Println(funcSetObj.Cardinality())
-		fmt.Println(funcSetObj.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), "net/http", "Error")))
-		fmt.Println(funcSetObj.Contains(analysisutil.LookupFromImports(pass.Pkg.Imports(), pass.Files[0].Name.Name, "a")))
-	*/
-
 	// TODO: add a handler for *ast.AssignStmt, *ast.FuncLit, *ast.IndexExpr and *ast.SelectorExpr
 	// TODO: *ast.AssignStmt, add this to funcSetObj
 	// DONE: *ast.FuncLit, add this to the switch handler
@@ -70,13 +62,11 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			for i, stmt := range block.List {
 				switch expr := stmt.(type) {
 				case *ast.AssignStmt: // handling with assign statement, := and =
-					//fmt.Println("AssignStmt")
 					// need to refer to RHS, since it is unnecessary to verify v if RHS is not the function we are paying attention
 					if len(expr.Lhs) == len(expr.Rhs) { // ! restrict the condition
 						for i, v := range expr.Lhs {
 							switch v := v.(type) {
 							case *ast.Ident:
-								//fmt.Println("this is ident", v, pass.TypesInfo.Defs[v])
 								if obj := pass.TypesInfo.Defs[v]; obj != nil {
 									switch rhs := expr.Rhs[i].(type) {
 									case *ast.Ident:
@@ -112,8 +102,6 @@ func run(pass *analysis.Pass) (interface{}, error) {
 							default:
 								pass.Reportf(v.Pos(), "Undefined Process")
 							}
-							//fmt.Println(funcSetIdent)
-							//fmt.Println(funcSetObj)
 						}
 					}
 				case *ast.ExprStmt: // if a function is called
@@ -127,11 +115,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 							// TODO
 							// ! This cannot be resolved!
 						case *ast.SelectorExpr: // if the function is a method of a structure
-							//fmt.Println("fun.Sel.Obj: ", fun.Sel)
 							xobj = pass.TypesInfo.Uses[fun.Sel]
 							pos = fun.Sel.Pos()
 						case *ast.FuncLit:
-							//fmt.Println("fun is an *ast.FuncLit: ", fun)
 							pos = fun.Pos()
 							pass.Reportf(pos, "OK")
 							continue
@@ -142,27 +128,18 @@ func run(pass *analysis.Pass) (interface{}, error) {
 							varFlag = funcSetIdent.Contains(fun) // why false?
 							//fmt.Println(fun, funcSetIdent, varFlag)
 						default:
-							//fmt.Println("fun: ", fun)
 							pos = fun.Pos()
-							//pass.Reportf(pos, "Undefined Process")
 						}
-						//fmt.Println("xobj: ", xobj)
 						if i == len(block.List)-1 {
-							//fmt.Println("The last function without return", pass.Fset.Position(pos), "\nNG")
 							pass.Reportf(pos, "NG")
 						} else if i < len(block.List)-1 && (funcSetObj.Contains(xobj) || varFlag) {
 							switch block.List[i+1].(type) {
 							case *ast.ReturnStmt:
-								//fmt.Println(pass.Fset.Position(pos), "\nOK")
-								//pass.Reportf(pos, "OK")
+								continue
 							default:
-								//fmt.Println("function without return", pass.Fset.Position(pos), "\nNG")
-								//fmt.Println("NG")
 								pass.Reportf(pos, "NG")
 							}
 						} else {
-							//fmt.Println(pass.Fset.Position(pos), "\npass")
-							//pass.Reportf(pos, "OK")
 							continue
 						}
 					}
@@ -171,7 +148,6 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		}
 	})
 
-	//dumpTypesInfo(pass)
 	return nil, nil
 }
 
