@@ -1,8 +1,9 @@
 package e
 
 func main() {
-	err := func() {}
-	err() // want "NG"
+	err1, err2 := func() {}, func() {}
+	err1() // want "NG"
+	err2() // want "NG"
 
-	func() {}() // want "NG"
+	func() {}() // want "OK"
 }
