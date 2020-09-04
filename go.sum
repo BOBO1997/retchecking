@@ -1,3 +1,5 @@
+github.com/deckarep/golang-set v1.7.1 h1:SCQV0S6gTtp6itiFrTqI+pfmJ4LN85S1YzhDf9rTHJQ=
+github.com/deckarep/golang-set v1.7.1/go.mod h1:93vsz/8Wt4joVM7c2AVqh+YRMiUSc14yDtF28KmMOgQ=
 github.com/gostaticanalysis/analysisutil v0.1.0 h1:E4c8Y1EQURbBEAHoXc/jBTK7Np14ArT8NPUiSFOl9yc=
 github.com/gostaticanalysis/analysisutil v0.1.0/go.mod h1:dMhHRU9KTiDcuLGdy87/2gTR8WruwYZrKdRq9m1O6uw=
 github.com/gostaticanalysis/comment v1.3.0 h1:wTVgynbFu8/nz6SGgywA0TcyIoAVsYc7ai/Zp5xNGlw=
@@ -28,6 +30,7 @@ golang.org/x/tools v0.0.0-20200624225443-88f3c62a19ff/go.mod h1:EkVYQZoAsY45+roY
 golang.org/x/tools v0.0.0-20200903005429-2364a5e8fdcf h1:cOiNYCV+8M1y9/TPI56oDaaBFwU0kWzlJ45x74iFaJY=
 golang.org/x/tools v0.0.0-20200903005429-2364a5e8fdcf/go.mod h1:Cj7w3i3Rnn0Xh82ur9kSqwfTHTeVxaDqrfMjpcNT6bE=
 golang.org/x/tools v0.0.0-20200903153655-76a6aac657c7 h1:Qfjfs7m85z50QOyvTljbTKwabUec5fklxtRYO6lDRAs=
+golang.org/x/tools v0.0.0-20200903185744-af4cc2cd812e h1:RvNtqusJ+6DJ07/by/M84a6/Dd17XU6n8QvhvknjJno=
 golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=

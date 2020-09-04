@@ -18,62 +18,184 @@
     17  .  .  }
     18  .  .  Body: *ast.BlockStmt {
     19  .  .  .  Lbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:3:13
-    20  .  .  .  List: []ast.Stmt (len = 2) {
+    20  .  .  .  List: []ast.Stmt (len = 4) {
     21  .  .  .  .  0: *ast.AssignStmt {
-    22  .  .  .  .  .  Lhs: []ast.Expr (len = 1) {
+    22  .  .  .  .  .  Lhs: []ast.Expr (len = 2) {
     23  .  .  .  .  .  .  0: *ast.Ident {
     24  .  .  .  .  .  .  .  NamePos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:2
-    25  .  .  .  .  .  .  .  Name: "err"
+    25  .  .  .  .  .  .  .  Name: "err1"
     26  .  .  .  .  .  .  .  Obj: *ast.Object {
     27  .  .  .  .  .  .  .  .  Kind: var
-    28  .  .  .  .  .  .  .  .  Name: "err"
+    28  .  .  .  .  .  .  .  .  Name: "err1"
     29  .  .  .  .  .  .  .  .  Decl: *(obj @ 21)
     30  .  .  .  .  .  .  .  }
     31  .  .  .  .  .  .  }
-    32  .  .  .  .  .  }
-    33  .  .  .  .  .  TokPos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:6
-    34  .  .  .  .  .  Tok: :=
-    35  .  .  .  .  .  Rhs: []ast.Expr (len = 1) {
-    36  .  .  .  .  .  .  0: *ast.FuncLit {
-    37  .  .  .  .  .  .  .  Type: *ast.FuncType {
-    38  .  .  .  .  .  .  .  .  Func: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:9
-    39  .  .  .  .  .  .  .  .  Params: *ast.FieldList {
-    40  .  .  .  .  .  .  .  .  .  Opening: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:13
-    41  .  .  .  .  .  .  .  .  .  Closing: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:14
-    42  .  .  .  .  .  .  .  .  }
-    43  .  .  .  .  .  .  .  }
-    44  .  .  .  .  .  .  .  Body: *ast.BlockStmt {
-    45  .  .  .  .  .  .  .  .  Lbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:16
-    46  .  .  .  .  .  .  .  .  Rbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:17
-    47  .  .  .  .  .  .  .  }
-    48  .  .  .  .  .  .  }
-    49  .  .  .  .  .  }
-    50  .  .  .  .  }
-    51  .  .  .  .  1: *ast.ExprStmt {
-    52  .  .  .  .  .  X: *ast.CallExpr {
-    53  .  .  .  .  .  .  Fun: *ast.Ident {
-    54  .  .  .  .  .  .  .  NamePos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:2
-    55  .  .  .  .  .  .  .  Name: "err"
-    56  .  .  .  .  .  .  .  Obj: *(obj @ 26)
+    32  .  .  .  .  .  .  1: *ast.Ident {
+    33  .  .  .  .  .  .  .  NamePos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:8
+    34  .  .  .  .  .  .  .  Name: "err2"
+    35  .  .  .  .  .  .  .  Obj: *ast.Object {
+    36  .  .  .  .  .  .  .  .  Kind: var
+    37  .  .  .  .  .  .  .  .  Name: "err2"
+    38  .  .  .  .  .  .  .  .  Decl: *(obj @ 21)
+    39  .  .  .  .  .  .  .  }
+    40  .  .  .  .  .  .  }
+    41  .  .  .  .  .  }
+    42  .  .  .  .  .  TokPos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:13
+    43  .  .  .  .  .  Tok: :=
+    44  .  .  .  .  .  Rhs: []ast.Expr (len = 2) {
+    45  .  .  .  .  .  .  0: *ast.FuncLit {
+    46  .  .  .  .  .  .  .  Type: *ast.FuncType {
+    47  .  .  .  .  .  .  .  .  Func: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:16
+    48  .  .  .  .  .  .  .  .  Params: *ast.FieldList {
+    49  .  .  .  .  .  .  .  .  .  Opening: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:20
+    50  .  .  .  .  .  .  .  .  .  Closing: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:21
+    51  .  .  .  .  .  .  .  .  }
+    52  .  .  .  .  .  .  .  }
+    53  .  .  .  .  .  .  .  Body: *ast.BlockStmt {
+    54  .  .  .  .  .  .  .  .  Lbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:23
+    55  .  .  .  .  .  .  .  .  Rbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:24
+    56  .  .  .  .  .  .  .  }
     57  .  .  .  .  .  .  }
-    58  .  .  .  .  .  .  Lparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:5
-    59  .  .  .  .  .  .  Ellipsis: -
-    60  .  .  .  .  .  .  Rparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:6
-    61  .  .  .  .  .  }
-    62  .  .  .  .  }
-    63  .  .  .  }
-    64  .  .  .  Rbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:6:1
-    65  .  .  }
-    66  .  }
-    67  }
-<nil>
-<nil>
-<nil>
+    58  .  .  .  .  .  .  1: *ast.FuncLit {
+    59  .  .  .  .  .  .  .  Type: *ast.FuncType {
+    60  .  .  .  .  .  .  .  .  Func: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:27
+    61  .  .  .  .  .  .  .  .  Params: *ast.FieldList {
+    62  .  .  .  .  .  .  .  .  .  Opening: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:31
+    63  .  .  .  .  .  .  .  .  .  Closing: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:32
+    64  .  .  .  .  .  .  .  .  }
+    65  .  .  .  .  .  .  .  }
+    66  .  .  .  .  .  .  .  Body: *ast.BlockStmt {
+    67  .  .  .  .  .  .  .  .  Lbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:34
+    68  .  .  .  .  .  .  .  .  Rbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:4:35
+    69  .  .  .  .  .  .  .  }
+    70  .  .  .  .  .  .  }
+    71  .  .  .  .  .  }
+    72  .  .  .  .  }
+    73  .  .  .  .  1: *ast.ExprStmt {
+    74  .  .  .  .  .  X: *ast.CallExpr {
+    75  .  .  .  .  .  .  Fun: *ast.Ident {
+    76  .  .  .  .  .  .  .  NamePos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:2
+    77  .  .  .  .  .  .  .  Name: "err1"
+    78  .  .  .  .  .  .  .  Obj: *(obj @ 26)
+    79  .  .  .  .  .  .  }
+    80  .  .  .  .  .  .  Lparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:6
+    81  .  .  .  .  .  .  Ellipsis: -
+    82  .  .  .  .  .  .  Rparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:7
+    83  .  .  .  .  .  }
+    84  .  .  .  .  }
+    85  .  .  .  .  2: *ast.ExprStmt {
+    86  .  .  .  .  .  X: *ast.CallExpr {
+    87  .  .  .  .  .  .  Fun: *ast.Ident {
+    88  .  .  .  .  .  .  .  NamePos: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:6:2
+    89  .  .  .  .  .  .  .  Name: "err2"
+    90  .  .  .  .  .  .  .  Obj: *(obj @ 35)
+    91  .  .  .  .  .  .  }
+    92  .  .  .  .  .  .  Lparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:6:6
+    93  .  .  .  .  .  .  Ellipsis: -
+    94  .  .  .  .  .  .  Rparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:6:7
+    95  .  .  .  .  .  }
+    96  .  .  .  .  }
+    97  .  .  .  .  3: *ast.ExprStmt {
+    98  .  .  .  .  .  X: *ast.CallExpr {
+    99  .  .  .  .  .  .  Fun: *ast.FuncLit {
+   100  .  .  .  .  .  .  .  Type: *ast.FuncType {
+   101  .  .  .  .  .  .  .  .  Func: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:2
+   102  .  .  .  .  .  .  .  .  Params: *ast.FieldList {
+   103  .  .  .  .  .  .  .  .  .  Opening: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:6
+   104  .  .  .  .  .  .  .  .  .  Closing: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:7
+   105  .  .  .  .  .  .  .  .  }
+   106  .  .  .  .  .  .  .  }
+   107  .  .  .  .  .  .  .  Body: *ast.BlockStmt {
+   108  .  .  .  .  .  .  .  .  Lbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:9
+   109  .  .  .  .  .  .  .  .  Rbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:10
+   110  .  .  .  .  .  .  .  }
+   111  .  .  .  .  .  .  }
+   112  .  .  .  .  .  .  Lparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:11
+   113  .  .  .  .  .  .  Ellipsis: -
+   114  .  .  .  .  .  .  Rparen: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:8:12
+   115  .  .  .  .  .  }
+   116  .  .  .  .  }
+   117  .  .  .  }
+   118  .  .  .  Rbrace: /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:9:1
+   119  .  .  }
+   120  .  }
+   121  }
+Set{}
+0
+false
+false
+
+Set{}
+Set{}
+
+fun.(*ast.Ident):  err1
+xobj:  var err1 func()
+/Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:2 
+pass
+
+fun.(*ast.Ident):  err2
+xobj:  var err2 func()
+/Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:6:2 
+pass
+
+fun is an *ast.FuncLit:  &{0xc000293880 0xc000290810}
+
+Defs
+map[e:<nil> main:func e.main() err1:var err1 func() err2:var err2 func()]
+key:  e  item:  <nil>
+key:  main  item:  func e.main()
+key:  err1  item:  var err1 func()
+key:  err2  item:  var err2 func()
+
+Scopes
+key:  &{<nil> 1 e [0xc000290870] scope 0xc00029c4f0 {
+	func main
+}
+ [] [] [0xc0002937e0 0xc000293860 0xc0002938c0]}  item:  /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go scope 0xc0002cc1e0 {
+}
+
+key:  &{12 0xc000290570 <nil>}  item:  function scope 0xc0002cc280 {
+.  var err1 func()
+.  var err2 func()
+}
+
+key:  &{41 0xc000290600 <nil>}  item:  function scope 0xc0002cc370 {
+}
+
+key:  &{52 0xc0002906f0 <nil>}  item:  function scope 0xc0002cc3c0 {
+}
+
+key:  &{106 0xc0002907b0 <nil>}  item:  function scope 0xc0002cc410 {
+}
 
 
-fun.(*ast.Ident):  err
-xobj:  var err func()
-The last function without return /Users/yangbo/go/src/github.com/BOBO1997/return-checking/testdata/src/e/e.go:5:2 
-NG
-PASS
-ok  	github.com/BOBO1997/retchecking	0.346s
+Implicits
+
+Selections
+
+InitOrder
+
+Types
+key:  &{106 0xc0002907b0 <nil>}  item:  {3 func() <nil>}
+key:  &{0xc000293740 0xc000290690}  item:  {7 func() <nil>}
+key:  &{52 0xc0002906f0 <nil>}  item:  {3 func() <nil>}
+key:  err1  item:  {5 func() <nil>}
+key:  &{err1 67 [] 0 68}  item:  {1 () <nil>}
+key:  &{err2 88 [] 0 89}  item:  {1 () <nil>}
+key:  &{41 0xc000290600 <nil>}  item:  {3 func() <nil>}
+key:  &{0xc000293760 0xc000290750}  item:  {7 func() <nil>}
+key:  err2  item:  {5 func() <nil>}
+key:  &{0xc000293880 0xc000290810}  item:  {7 func() <nil>}
+key:  &{0xc00029c620 115 [] 0 116}  item:  {1 () <nil>}
+
+Uses
+key:  err2  item:  var err2 func()
+key:  err1  item:  var err1 func()
+--- FAIL: TestAnalyzer (0.04s)
+    analysistest.go:419: e/e.go:5:2: diagnostic "OK" does not match pattern "NG"
+    analysistest.go:419: e/e.go:6:2: diagnostic "OK" does not match pattern "NG"
+    analysistest.go:483: e/e.go:5: no diagnostic was reported matching "NG"
+    analysistest.go:483: e/e.go:6: no diagnostic was reported matching "NG"
+FAIL
+exit status 1
+FAIL	github.com/BOBO1997/retchecking	0.402s
