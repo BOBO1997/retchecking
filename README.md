@@ -26,3 +26,9 @@ This program checks whether `return` statement is used immediately after certain
 Or you can use `go vet` command as followinig.
 
 `go vet -vettool=$(which retcheking) TOBETESTED.go`
+
+## Notes
+
+The current source code is a prototype and is not so efficient and not covering all the situation.
+THis tool uses the AST and TYPES information, but it seems that AST itself cannot detect whole possible cases.
+I am now changing the technical relaization of the core part from AST to SSA.
